@@ -3,8 +3,42 @@
 	package="ru.ming13.muzei.earthview"
 	android:installLocation="auto">
 
+	<uses-permission
+		android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission
+		android:name="android.permission.INTERNET"/>
+	<uses-permission
+		android:name="android.permission.WAKE_LOCK"/>
+
 	<application
 		android:label="Muzei Earth View">
+
+		<provider
+			android:name="android.support.v4.content.FileProvider"
+			android:authorities="@string/authority_files"
+			android:exported="false"
+			android:grantUriPermissions="true">
+
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/files"/>
+
+		</provider>
+
+		<service
+			android:name=".api.WallpaperArtworkSource"
+			android:label="Earth View">
+
+			<intent-filter>
+				<action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
+			</intent-filter>
+
+			<meta-data
+				android:name="color"
+				android:value="#fa0"/>
+
+		</service>
+
 	</application>
 
 </manifest>
