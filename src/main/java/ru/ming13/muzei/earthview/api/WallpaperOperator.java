@@ -22,4 +22,8 @@ final class WallpaperOperator
 
 		return String.format(Locale.US, "%s, %s", wallpaper.getLocation().getRegion(), wallpaper.getLocation().getCountry());
 	}
+
+	public String getDescription(@NonNull Wallpaper wallpaper) {
+		return wallpaper.getAttribution();
+	}
 }

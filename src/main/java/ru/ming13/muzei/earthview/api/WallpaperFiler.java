@@ -1,12 +1,14 @@
 package ru.ming13.muzei.earthview.api;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Set;
 
 import ru.ming13.muzei.earthview.R;
 import ru.ming13.muzei.earthview.util.Files;
@@ -37,8 +39,14 @@ final class WallpaperFiler
 		getFile(wallpaperId).delete();
 	}
 
-	public Uri getFileUri(@NonNull String wallpaperId) {
-		return FileProvider.getUriForFile(context, context.getString(R.string.authority_files), getFile(wallpaperId));
+	public Uri getFileUri(@NonNull String wallpaperId, @NonNull Set<String> wallpaperSubscribers) {
+		Uri fileUri = FileProvider.getUriForFile(context, context.getString(R.string.authority_files), getFile(wallpaperId));
+
+		for (String wallpaperSubscriber : wallpaperSubscribers) {
+			context.grantUriPermission(wallpaperSubscriber, fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		}
+
+		return fileUri;
 	}
 
 	private void createDirectory() {

@@ -1,12 +1,16 @@
 package ru.ming13.muzei.earthview.api;
 
+import android.content.ComponentName;
+
 import com.google.android.apps.muzei.api.Artwork;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import ru.ming13.muzei.earthview.model.Wallpaper;
+import ru.ming13.muzei.earthview.util.Preferences;
 import ru.ming13.muzei.earthview.util.RussianRoulette;
 import ru.ming13.muzei.earthview.util.Strings;
 
@@ -22,18 +26,27 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 		public static final int UPDATE_TIME_IN_HOURS = 4;
 	}
 
-	private final WallpaperClient wallpaperClient;
-	private final WallpaperOperator wallpaperOperator;
-	private final WallpaperFiler wallpaperFiler;
-	private final WallpaperIdsReader wallpaperIdsReader;
+	private WallpaperClient wallpaperClient;
+	private WallpaperOperator wallpaperOperator;
+	private WallpaperFiler wallpaperFiler;
+	private WallpaperIdsReader wallpaperIdsReader;
+
+	private Set<String> wallpaperSubscribers;
 
 	public WallpaperArtworkSource() {
 		super(NAME);
+	}
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
 
 		this.wallpaperClient = new WallpaperClient();
 		this.wallpaperOperator = new WallpaperOperator();
 		this.wallpaperFiler = new WallpaperFiler(this);
 		this.wallpaperIdsReader = new WallpaperIdsReader(this);
+
+		this.wallpaperSubscribers = Preferences.of(this).getWallpaperSubscribers();
 
 		setUpFeatures();
 	}
@@ -56,7 +69,8 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 
 		Artwork wallpaperArtwork = new Artwork.Builder()
 			.title(wallpaperOperator.getTitle(wallpaper))
-			.imageUri(wallpaperFiler.getFileUri(wallpaper.getId()))
+			.byline(wallpaperOperator.getDescription(wallpaper))
+			.imageUri(wallpaperFiler.getFileUri(wallpaper.getId(), wallpaperSubscribers))
 			.token(wallpaper.getId())
 			.build();
 
@@ -103,5 +117,23 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 
 	private void scheduleUpdate() {
 		scheduleUpdate(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(Configuration.UPDATE_TIME_IN_HOURS));
+	}
+
+	@Override
+	protected void onSubscriberAdded(ComponentName subscriber) {
+		super.onSubscriberAdded(subscriber);
+
+		wallpaperSubscribers.add(subscriber.getPackageName());
+
+		Preferences.of(this).setWallpaperSubscribers(wallpaperSubscribers);
+	}
+
+	@Override
+	protected void onSubscriberRemoved(ComponentName subscriber) {
+		super.onSubscriberRemoved(subscriber);
+
+		wallpaperSubscribers.remove(subscriber.getPackageName());
+
+		Preferences.of(this).setWallpaperSubscribers(wallpaperSubscribers);
 	}
 }

@@ -13,6 +13,9 @@ public final class Wallpaper
 	@SerializedName("geocode")
 	private Location location;
 
+	@SerializedName("attribution")
+	private String attribution;
+
 	public String getId() {
 		return id;
 	}
@@ -23,5 +26,9 @@ public final class Wallpaper
 
 	public Location getLocation() {
 		return location;
+	}
+
+	public String getAttribution() {
+		return attribution;
 	}
 }
