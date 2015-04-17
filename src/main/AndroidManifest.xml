@@ -27,7 +27,8 @@
 
 		<service
 			android:name=".api.WallpaperArtworkSource"
-			android:label="Earth View">
+			android:label="@string/artwork_source_title"
+			android:description="@string/artwork_source_description">
 
 			<intent-filter>
 				<action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
@@ -35,7 +36,7 @@
 
 			<meta-data
 				android:name="color"
-				android:value="#fa0"/>
+				android:value="@android:color/holo_blue_bright"/>
 
 		</service>
 

@@ -5,20 +5,20 @@ import android.support.annotation.Nullable;
 
 public final class Strings
 {
-	private static final class Results
-	{
-		private Results() {
-		}
-
-		public static final int NOT_FOUND = -1;
-	}
-
 	private static final class Defaults
 	{
 		private Defaults() {
 		}
 
 		public static final String EMPTY = "";
+	}
+
+	private static final class Results
+	{
+		private Results() {
+		}
+
+		public static final int NOT_FOUND = -1;
 	}
 
 	private Strings() {

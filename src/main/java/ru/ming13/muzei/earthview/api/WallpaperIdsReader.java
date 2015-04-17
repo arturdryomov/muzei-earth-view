@@ -16,17 +16,17 @@ final class WallpaperIdsReader
 {
 	private final Assets assets;
 
-	private final Gson wallpaperIdsReader;
+	private final Gson jsonReader;
 
 	public WallpaperIdsReader(@NonNull Context context) {
 		this.assets = new Assets(context);
 
-		this.wallpaperIdsReader = new Gson();
+		this.jsonReader = new Gson();
 	}
 
-	public List<String> getIds() {
-		InputStream wallpaperIdsStream = assets.getStream(Assets.Names.WALLPAPERS);
+	public List<String> readIds() {
+		InputStream wallpaperIdsStream = assets.getStream(Assets.Files.WALLPAPERS);
 
-		return Arrays.asList(wallpaperIdsReader.fromJson(new InputStreamReader(wallpaperIdsStream), String[].class));
+		return Arrays.asList(jsonReader.fromJson(new InputStreamReader(wallpaperIdsStream), String[].class));
 	}
 }

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
+import java.util.Locale;
 
 import ru.ming13.muzei.earthview.R;
 import ru.ming13.muzei.earthview.util.Files;
@@ -53,6 +54,6 @@ final class WallpaperFiler
 	}
 
 	private String getFileName(String wallpaperId) {
-		return String.format("%s.jpg", wallpaperId);
+		return String.format(Locale.US, "%s.jpg", wallpaperId);
 	}
 }

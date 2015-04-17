@@ -11,7 +11,7 @@ public final class RussianRoulette
 		this.random = new Random();
 	}
 
-	public <T> T pickElement(List<T> elements) {
-		return elements.get(random.nextInt(elements.size()));
+	public <T> T fire(List<T> bullets) {
+		return bullets.get(random.nextInt(bullets.size()));
 	}
 }

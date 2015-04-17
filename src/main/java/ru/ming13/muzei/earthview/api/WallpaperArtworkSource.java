@@ -14,9 +14,9 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 {
 	private static final String NAME = "EarthViewArtSource";
 
-	private static final class Options
+	private static final class Configuration
 	{
-		private Options() {
+		private Configuration() {
 		}
 
 		public static final int UPDATE_TIME_IN_HOURS = 4;
@@ -90,18 +90,18 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 	private String getRandomWallpaperId(String currentWallpaperId) {
 		RussianRoulette russianRoulette = new RussianRoulette();
 
-		List<String> wallpaperIds = wallpaperIdsReader.getIds();
+		List<String> wallpaperIds = wallpaperIdsReader.readIds();
 
-		String randomWallpaperId = russianRoulette.pickElement(wallpaperIds);
+		String randomWallpaperId = russianRoulette.fire(wallpaperIds);
 
 		while (randomWallpaperId.equals(currentWallpaperId)) {
-			randomWallpaperId = russianRoulette.pickElement(wallpaperIds);
+			randomWallpaperId = russianRoulette.fire(wallpaperIds);
 		}
 
 		return randomWallpaperId;
 	}
 
 	private void scheduleUpdate() {
-		scheduleUpdate(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(Options.UPDATE_TIME_IN_HOURS));
+		scheduleUpdate(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(Configuration.UPDATE_TIME_IN_HOURS));
 	}
 }

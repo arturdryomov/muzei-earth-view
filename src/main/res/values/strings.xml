@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	
-	<string name="authority_files">ru.ming13.muzei.earthview.files</string>
-	
+
+	<string name="application_name">Muzei Earth View</string>
+
+	<string name="artwork_source_title">Earth View</string>
+	<string name="artwork_source_description">Beautiful and unique satellite images from Google Maps</string>
+
+	<string name="authority_files" translatable="false">ru.ming13.muzei.earthview.files</string>
+
 </resources>

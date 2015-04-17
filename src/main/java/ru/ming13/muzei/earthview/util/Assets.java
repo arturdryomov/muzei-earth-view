@@ -8,12 +8,12 @@ import java.io.InputStream;
 
 public final class Assets
 {
-	public static final class Names
+	public static final class Files
 	{
-		private Names() {
+		private Files() {
 		}
 
-		public static final String WALLPAPERS = "wallpapes.json";
+		public static final String WALLPAPERS = "wallpapers.json";
 	}
 
 	private final Context context;
@@ -22,9 +22,9 @@ public final class Assets
 		this.context = context.getApplicationContext();
 	}
 
-	public InputStream getStream(@NonNull String assetName) {
+	public InputStream getStream(@NonNull String fileName) {
 		try {
-			return context.getAssets().open(assetName);
+			return context.getAssets().open(fileName);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
