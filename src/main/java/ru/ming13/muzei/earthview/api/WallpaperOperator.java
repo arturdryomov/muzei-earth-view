@@ -24,6 +24,6 @@ final class WallpaperOperator
 	}
 
 	public String getDescription(@NonNull Wallpaper wallpaper) {
-		return wallpaper.getAttribution();
+		return wallpaper.getAttribution().replace("\u00a9", "\u00a9 ");
 	}
 }
