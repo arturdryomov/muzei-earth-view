@@ -25,7 +25,7 @@ android {
         versionCode buildVersionCode(versionMajor, versionMinor, versionPatch)
 
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
     }
 }
 
