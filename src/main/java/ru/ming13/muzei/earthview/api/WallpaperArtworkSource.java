@@ -23,7 +23,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 		private Configuration() {
 		}
 
-		public static final int UPDATE_TIME_IN_HOURS = 1;
+		public static final int UPDATE_TIME_IN_HOURS = 24;
 	}
 
 	private WallpaperClient wallpaperClient;
