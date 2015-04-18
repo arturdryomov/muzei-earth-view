@@ -22,6 +22,9 @@ public final class Wallpaper
 	@SerializedName("lng")
 	private double longitude;
 
+	@SerializedName("zoom")
+	private int zoom;
+
 	public String getId() {
 		return id;
 	}
@@ -44,5 +47,9 @@ public final class Wallpaper
 
 	public double getLongitude() {
 		return longitude;
+	}
+
+	public int getZoom() {
+		return zoom;
 	}
 }

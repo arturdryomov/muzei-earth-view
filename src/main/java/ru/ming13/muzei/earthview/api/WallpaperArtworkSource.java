@@ -70,6 +70,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 		Artwork wallpaperArtwork = new Artwork.Builder()
 			.title(wallpaperOperator.getTitle(wallpaper))
 			.byline(wallpaperOperator.getDescription(wallpaper))
+			.viewIntent(wallpaperOperator.getIntent(wallpaper))
 			.imageUri(wallpaperFiler.getFileUri(wallpaper.getId(), wallpaperSubscribers))
 			.token(wallpaper.getId())
 			.build();
