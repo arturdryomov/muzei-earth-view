@@ -23,7 +23,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 		private Configuration() {
 		}
 
-		public static final int UPDATE_TIME_IN_HOURS = 4;
+		public static final int UPDATE_TIME_IN_HOURS = 1;
 	}
 
 	private WallpaperClient wallpaperClient;
@@ -94,11 +94,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 	}
 
 	private Wallpaper getNextWallpaper(String currentWallpaperId) {
-		try {
-			return wallpaperClient.getWallpaper(getRandomWallpaperId(currentWallpaperId));
-		} catch (RuntimeException e) {
-			return null;
-		}
+		return wallpaperClient.getWallpaper(getRandomWallpaperId(currentWallpaperId));
 	}
 
 	private String getRandomWallpaperId(String currentWallpaperId) {

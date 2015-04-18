@@ -23,6 +23,10 @@ final class WallpaperClient
 	}
 
 	public Wallpaper getWallpaper(@NonNull String wallpaperId) {
-		return api.getWallpaper(wallpaperId);
+		try {
+			return api.getWallpaper(wallpaperId);
+		} catch (RuntimeException e) {
+			return null;
+		}
 	}
 }

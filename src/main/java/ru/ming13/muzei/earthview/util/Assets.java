@@ -18,7 +18,7 @@ public final class Assets
 
 	private final Context context;
 
-	public Assets(Context context) {
+	public Assets(@NonNull Context context) {
 		this.context = context.getApplicationContext();
 	}
 

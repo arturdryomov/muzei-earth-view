@@ -35,20 +35,6 @@ final class WallpaperFiler
 		Files.write(getFile(wallpaperId), wallpaperBytes);
 	}
 
-	public void deleteFile(@NonNull String wallpaperId) {
-		getFile(wallpaperId).delete();
-	}
-
-	public Uri getFileUri(@NonNull String wallpaperId, @NonNull Set<String> wallpaperSubscribers) {
-		Uri fileUri = FileProvider.getUriForFile(context, context.getString(R.string.authority_files), getFile(wallpaperId));
-
-		for (String wallpaperSubscriber : wallpaperSubscribers) {
-			context.grantUriPermission(wallpaperSubscriber, fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-		}
-
-		return fileUri;
-	}
-
 	private void createDirectory() {
 		getDirectory().mkdirs();
 	}
@@ -63,5 +49,19 @@ final class WallpaperFiler
 
 	private String getFileName(String wallpaperId) {
 		return String.format(Locale.US, "%s.jpg", wallpaperId);
+	}
+
+	public void deleteFile(@NonNull String wallpaperId) {
+		getFile(wallpaperId).delete();
+	}
+
+	public Uri getFileUri(@NonNull String wallpaperId, @NonNull Set<String> wallpaperSubscribers) {
+		Uri fileUri = FileProvider.getUriForFile(context, context.getString(R.string.authority_files), getFile(wallpaperId));
+
+		for (String wallpaperSubscriber : wallpaperSubscribers) {
+			context.grantUriPermission(wallpaperSubscriber, fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		}
+
+		return fileUri;
 	}
 }

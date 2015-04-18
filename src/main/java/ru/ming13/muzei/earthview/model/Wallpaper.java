@@ -10,11 +10,17 @@ public final class Wallpaper
 	@SerializedName("dataUri")
 	private String dataUri;
 
-	@SerializedName("geocode")
-	private Location location;
-
 	@SerializedName("attribution")
 	private String attribution;
+
+	@SerializedName("geocode")
+	private Area area;
+
+	@SerializedName("lat")
+	private double latitude;
+
+	@SerializedName("lng")
+	private double longitude;
 
 	public String getId() {
 		return id;
@@ -24,11 +30,19 @@ public final class Wallpaper
 		return dataUri;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
 	public String getAttribution() {
 		return attribution;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
 	}
 }

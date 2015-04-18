@@ -16,11 +16,11 @@ final class WallpaperOperator
 	}
 
 	public String getTitle(@NonNull Wallpaper wallpaper) {
-		if (Strings.isEmpty(wallpaper.getLocation().getRegion())) {
-			return wallpaper.getLocation().getCountry();
+		if (Strings.isEmpty(wallpaper.getArea().getRegion())) {
+			return wallpaper.getArea().getCountry();
 		}
 
-		return String.format(Locale.US, "%s, %s", wallpaper.getLocation().getRegion(), wallpaper.getLocation().getCountry());
+		return String.format(Locale.US, "%s, %s", wallpaper.getArea().getRegion(), wallpaper.getArea().getCountry());
 	}
 
 	public String getDescription(@NonNull Wallpaper wallpaper) {

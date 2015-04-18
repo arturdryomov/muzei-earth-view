@@ -2,7 +2,7 @@ package ru.ming13.muzei.earthview.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public final class Location
+public final class Area
 {
 	@SerializedName("locality")
 	private String region;
