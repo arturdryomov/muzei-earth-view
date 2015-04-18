@@ -2,6 +2,9 @@ package ru.ming13.muzei.earthview.util;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+
+import java.util.Locale;
 
 public class Intents
 {
@@ -16,8 +19,8 @@ public class Intents
 	private Intents() {
 	}
 
-	public static Intent getGoogleMapsIntent(String title, double latitude, double longitude, int zoom) {
-		String uri = String.format(Uris.GOOGLE_MAPS, latitude, longitude, title, zoom);
+	public static Intent getGoogleMapsIntent(@NonNull String title, double latitude, double longitude, int zoom) {
+		String uri = String.format(Locale.US, Uris.GOOGLE_MAPS, latitude, longitude, title, zoom);
 
 		return new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 	}

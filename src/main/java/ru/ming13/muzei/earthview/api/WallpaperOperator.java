@@ -25,11 +25,11 @@ final class WallpaperOperator
 		return wallpaper.getAttribution().replace("\u00a9", "\u00a9 ");
 	}
 
-	public Intent getIntent(@NonNull Wallpaper wallpaper) {
-		return Intents.getGoogleMapsIntent(getTitle(wallpaper), wallpaper.getLatitude(), wallpaper.getLongitude(), wallpaper.getZoom());
-	}
-
 	public byte[] getBytes(@NonNull Wallpaper wallpaper) {
 		return Base64.decode(DataUris.getData(wallpaper.getDataUri()), Base64.DEFAULT);
+	}
+
+	public Intent getIntent(@NonNull Wallpaper wallpaper) {
+		return Intents.getGoogleMapsIntent(getTitle(wallpaper), wallpaper.getLatitude(), wallpaper.getLongitude(), wallpaper.getZoom());
 	}
 }
