@@ -30,7 +30,7 @@ public final class Preferences
 		private Locations() {
 		}
 
-		public static final String WALLPAPER_SUBSCRIBERS = "wallpaper_subscribers";
+		public static final String STATE = "state";
 	}
 
 	private static final class Keys
@@ -56,7 +56,7 @@ public final class Preferences
 	}
 
 	private Preferences(Context context) {
-		this.preferences = context.getSharedPreferences(Locations.WALLPAPER_SUBSCRIBERS, Context.MODE_PRIVATE);
+		this.preferences = context.getSharedPreferences(Locations.STATE, Context.MODE_PRIVATE);
 	}
 
 	public Set<String> getWallpaperSubscribers() {
