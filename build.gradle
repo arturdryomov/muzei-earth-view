@@ -27,6 +27,28 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
     }
+
+    signingConfigs {
+        release {
+            def signingFile = file("signing.properties")
+            def signingProperties = new Properties()
+
+            if (signingFile.exists()) {
+                signingProperties.load(signingFile.newInputStream())
+
+                storeFile file(signingProperties["keystore.file"])
+                storePassword signingProperties["keystore.password"]
+                keyAlias signingProperties["key.alias"]
+                keyPassword signingProperties["key.password"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 def buildVersionName(versionMajor, versionMinor, versionPatch) {

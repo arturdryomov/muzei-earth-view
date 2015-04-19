@@ -1,3 +1,18 @@
+# Gradle
+
+.gradle/
+build/
+
+# Android Studio
+
+.idea/
+*.iml
+
 # Android
 
 local.properties
+
+# Keys
+
+release.keystore
+signing.properties
