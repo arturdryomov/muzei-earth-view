@@ -10,8 +10,6 @@ This repository contains the source code for the
 
 ## Building
 
-[![Travis Status][Travis image]][Travis link]
-
 You will need JDK 1.7+ installed.
 Gradle, Android SDK and all dependencies will be downloaded automatically.
 
@@ -30,12 +28,9 @@ The application uses some open source libraries.
 
   [Apache link]: http://www.apache.org/licenses/LICENSE-2.0.html
   [Google Play link]: https://play.google.com/store/apps/details?id=ru.ming13.muzei.earthview
-  [Travis link]: https://travis-ci.org/ming13/muzei-earth-view
 
   [Muzei link]: http://muzei.co
 
   [Gson link]: https://github.com/google/gson
   [OkHttp link]: https://github.com/square/okhttp
   [Retrofit link]: https://github.com/square/retrofit
-
-  [Travis image]: https://travis-ci.org/ming13/muzei-earth-view.svg?branch=master
