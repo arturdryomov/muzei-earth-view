@@ -1,0 +1,9 @@
+language: android
+
+jdk:
+  - openjdk7
+
+script:
+  - ./gradlew clean assembleDebug
+
+sudo: false
