@@ -1,0 +1,15 @@
+language: android
+
+jdk:
+  - openjdk7
+
+android:
+  components:
+    - android-22
+    - build-tools-22.0.0
+    - extra-android-m2repository
+
+script:
+  - ./gradlew clean assembleDebug
+
+sudo: false
