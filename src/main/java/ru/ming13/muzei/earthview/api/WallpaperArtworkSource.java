@@ -22,11 +22,9 @@ import com.google.android.apps.muzei.api.Artwork;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;
 
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import ru.ming13.muzei.earthview.model.Wallpaper;
-import ru.ming13.muzei.earthview.util.Preferences;
 import ru.ming13.muzei.earthview.util.RussianRoulette;
 import ru.ming13.muzei.earthview.util.Strings;
 
@@ -46,8 +44,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 	private WallpaperOperator wallpaperOperator;
 	private WallpaperFiler wallpaperFiler;
 	private WallpaperIdsReader wallpaperIdsReader;
-
-	private Set<String> wallpaperSubscribers;
+	private WallpaperSubscribers wallpaperSubscribers;
 
 	public WallpaperArtworkSource() {
 		super(NAME);
@@ -61,8 +58,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 		this.wallpaperOperator = new WallpaperOperator();
 		this.wallpaperFiler = new WallpaperFiler(this);
 		this.wallpaperIdsReader = new WallpaperIdsReader(this);
-
-		this.wallpaperSubscribers = Preferences.of(this).getWallpaperSubscribers();
+		this.wallpaperSubscribers = new WallpaperSubscribers(this);
 
 		setUpFeatures();
 	}
@@ -87,7 +83,7 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 			.title(wallpaperOperator.getTitle(wallpaper))
 			.byline(wallpaperOperator.getDescription(wallpaper))
 			.viewIntent(wallpaperOperator.getIntent(wallpaper))
-			.imageUri(wallpaperFiler.getFileUri(wallpaper.getId(), wallpaperSubscribers))
+			.imageUri(wallpaperFiler.getFileUri(wallpaper.getId(), wallpaperSubscribers.get()))
 			.token(wallpaper.getId())
 			.build();
 
@@ -136,17 +132,13 @@ public class WallpaperArtworkSource extends RemoteMuzeiArtSource
 	protected void onSubscriberAdded(ComponentName subscriber) {
 		super.onSubscriberAdded(subscriber);
 
-		wallpaperSubscribers.add(subscriber.getPackageName());
-
-		Preferences.of(this).setWallpaperSubscribers(wallpaperSubscribers);
+		wallpaperSubscribers.plus(subscriber.getPackageName());
 	}
 
 	@Override
 	protected void onSubscriberRemoved(ComponentName subscriber) {
 		super.onSubscriberRemoved(subscriber);
 
-		wallpaperSubscribers.remove(subscriber.getPackageName());
-
-		Preferences.of(this).setWallpaperSubscribers(wallpaperSubscribers);
+		wallpaperSubscribers.minus(subscriber.getPackageName());
 	}
 }
