@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:1.1.3"
+        classpath "com.android.tools.build:gradle:1.2.3"
         classpath "com.jakewharton.sdkmanager:gradle-plugin:0.12.0"
     }
 }
@@ -14,7 +14,7 @@ apply plugin: "com.android.application"
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         def versionMajor = 1
@@ -64,16 +64,10 @@ dependencies {
         mavenCentral()
     }
 
-    compile "com.android.support:support-annotations:22.1.0"
-    compile "com.android.support:support-v4:22.1.0"
+    compile "com.android.support:support-annotations:22.2.1"
+    compile "com.android.support:support-v4:22.2.1"
     compile "com.google.android.apps.muzei:muzei-api:2.0"
     compile "com.google.code.gson:gson:2.3.1"
-    compile "com.squareup.okhttp:okhttp:2.3.0"
+    compile "com.squareup.okhttp:okhttp:2.4.0"
     compile "com.squareup.retrofit:retrofit:1.9.0"
-}
-
-task generateWrapper(type: Wrapper) {
-    description "Generates Gradle wrapper."
-
-    gradleVersion = "2.3"
 }
