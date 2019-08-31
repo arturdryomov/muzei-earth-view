@@ -16,9 +16,9 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        def versionMajor = 1
+        def versionMajor = 2
         def versionMinor = 0
-        def versionPatch = 2
+        def versionPatch = 0
 
         versionName buildVersionName(versionMajor, versionMinor, versionPatch)
         versionCode buildVersionCode(versionMajor, versionMinor, versionPatch)
