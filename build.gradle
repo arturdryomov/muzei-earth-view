@@ -1,31 +1,30 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
+        google()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:1.2.3"
-        classpath "com.jakewharton.sdkmanager:gradle-plugin:0.12.0"
+        classpath "com.android.tools.build:gradle:3.5.0"
     }
 }
 
-apply plugin: "android-sdk-manager"
 apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
-        def versionMajor = 1
+        def versionMajor = 2
         def versionMinor = 0
-        def versionPatch = 2
+        def versionPatch = 0
 
         versionName buildVersionName(versionMajor, versionMinor, versionPatch)
         versionCode buildVersionCode(versionMajor, versionMinor, versionPatch)
 
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdkVersion 21
+        targetSdkVersion 28
     }
 
     signingConfigs {
@@ -51,23 +50,20 @@ android {
     }
 }
 
-def buildVersionName(versionMajor, versionMinor, versionPatch) {
+static def buildVersionName(versionMajor, versionMinor, versionPatch) {
     return "${versionMajor}.${versionMinor}.${versionPatch}"
 }
 
-def buildVersionCode(versionMajor, versionMinor, versionPatch) {
+static def buildVersionCode(versionMajor, versionMinor, versionPatch) {
     return versionMajor * 10 ** 2 + versionMinor * 10 ** 1 + versionPatch * 10 ** 0
 }
 
 dependencies {
     repositories {
-        mavenCentral()
+        jcenter()
+        google()
     }
 
-    compile "com.android.support:support-annotations:22.2.1"
-    compile "com.android.support:support-v4:22.2.1"
-    compile "com.google.android.apps.muzei:muzei-api:2.0"
-    compile "com.google.code.gson:gson:2.3.1"
-    compile "com.squareup.okhttp:okhttp:2.4.0"
-    compile "com.squareup.retrofit:retrofit:1.9.0"
+    implementation "com.google.android.apps.muzei:muzei-api:3.2.0"
+    implementation "com.google.code.gson:gson:2.8.5"
 }

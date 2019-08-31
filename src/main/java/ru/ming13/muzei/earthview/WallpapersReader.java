@@ -14,35 +14,38 @@
  * limitations under the License.
  */
 
-package ru.ming13.muzei.earthview.api;
+package ru.ming13.muzei.earthview;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-import ru.ming13.muzei.earthview.util.Assets;
-
-final class WallpaperIdsReader
+final class WallpapersReader
 {
-	private final Assets assets;
+	private static final String ASSET_PATH = "wallpapers.json";
 
-	private final Gson jsonReader;
+	private final Context context;
+	private final Gson gson;
 
-	public WallpaperIdsReader(@NonNull Context context) {
-		this.assets = new Assets(context);
-
-		this.jsonReader = new Gson();
+	WallpapersReader(Context context) {
+		this.context = context.getApplicationContext();
+		this.gson = new Gson();
 	}
 
-	public List<String> readIds() {
-		InputStream wallpaperIdsStream = assets.getStream(Assets.Files.WALLPAPERS);
+	List<Wallpaper> readWallpapers() {
+		try {
+			InputStream stream = context.getAssets().open(ASSET_PATH);
 
-		return Arrays.asList(jsonReader.fromJson(new InputStreamReader(wallpaperIdsStream), String[].class));
+			return Arrays.asList(gson.fromJson(new BufferedReader(new InputStreamReader(stream)), Wallpaper[].class));
+		} catch (IOException e) {
+			throw new RuntimeException("Assets reading failed.", e);
+		}
 	}
 }

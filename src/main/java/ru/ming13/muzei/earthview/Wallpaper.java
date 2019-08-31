@@ -14,12 +14,27 @@
  * limitations under the License.
  */
 
-package ru.ming13.muzei.earthview.api;
+package ru.ming13.muzei.earthview;
 
-final class WallpaperUrls
+import com.google.gson.annotations.SerializedName;
+
+final class Wallpaper
 {
-	private WallpaperUrls() {
-	}
+	@SerializedName("id")
+	String id;
 
-	public static final String ENDPOINT = "https://www.gstatic.com/prettyearth";
+	@SerializedName("country")
+	String country;
+
+	@SerializedName("region")
+	String region;
+
+	@SerializedName("file_url")
+	String fileUrl;
+
+	@SerializedName("maps_url")
+	String mapsUrl;
+
+	@SerializedName("attribution")
+	String attribution;
 }
