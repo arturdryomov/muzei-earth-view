@@ -16,7 +16,7 @@
 
 package ru.ming13.muzei.earthview.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

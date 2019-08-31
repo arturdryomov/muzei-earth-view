@@ -17,8 +17,8 @@
 
 package ru.ming13.muzei.earthview.api;
 
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 import ru.ming13.muzei.earthview.model.Wallpaper;
 
 interface WallpaperApi

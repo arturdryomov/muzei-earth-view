@@ -17,7 +17,7 @@
 package ru.ming13.muzei.earthview.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.io.InputStream;

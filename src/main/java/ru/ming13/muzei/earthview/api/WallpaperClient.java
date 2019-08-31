@@ -16,10 +16,9 @@
 
 package ru.ming13.muzei.earthview.api;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import retrofit.Endpoints;
-import retrofit.RestAdapter;
+import retrofit2.Retrofit;
 import ru.ming13.muzei.earthview.model.Wallpaper;
 
 final class WallpaperClient
@@ -31,11 +30,11 @@ final class WallpaperClient
 	}
 
 	private WallpaperApi createApi() {
-		RestAdapter apiAdapter = new RestAdapter.Builder()
-			.setEndpoint(Endpoints.newFixedEndpoint(WallpaperUrls.ENDPOINT))
+		Retrofit retrofit = new Retrofit.Builder()
+			.baseUrl(WallpaperUrls.ENDPOINT)
 			.build();
 
-		return apiAdapter.create(WallpaperApi.class);
+		return retrofit.create(WallpaperApi.class);
 	}
 
 	public Wallpaper getWallpaper(@NonNull String wallpaperId) {
