@@ -20,8 +20,6 @@
 	<string name="application_name">Muzei Earth View</string>
 
 	<string name="source_title">Earth View</string>
-	<string name="source_description">Beautiful and unique satellite images from Google Maps</string>
-
-	<string name="authority_files" translatable="false">ru.ming13.muzei.earthview.files</string>
+	<string name="source_description">Beautiful and unique satellite images from Google Earth.</string>
 
 </resources>

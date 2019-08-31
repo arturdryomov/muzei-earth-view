@@ -16,47 +16,33 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	package="ru.ming13.muzei.earthview"
 	android:installLocation="auto">
 
 	<uses-permission
-		android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission
 		android:name="android.permission.INTERNET"/>
-	<uses-permission
-		android:name="android.permission.WAKE_LOCK"/>
 
 	<application
 		android:icon="@mipmap/ic_launcher"
-		android:label="@string/application_name">
+        android:label="@string/application_name"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+		tools:ignore="GoogleAppIndexingWarning">
 
 		<provider
-			android:name="android.support.v4.content.FileProvider"
-			android:authorities="@string/authority_files"
-			android:exported="false"
-			android:grantUriPermissions="true">
-
-			<meta-data
-				android:name="android.support.FILE_PROVIDER_PATHS"
-				android:resource="@xml/files"/>
-
-		</provider>
-
-		<service
-			android:name=".api.WallpaperArtworkSource"
+			android:name=".WallpapersProvider"
+			android:authorities="ru.ming13.muzei.earthview"
+			android:label="@string/source_title"
 			android:description="@string/source_description"
-			android:icon="@drawable/ic_source"
-			android:label="@string/source_title">
+			android:exported="true"
+			android:permission="com.google.android.apps.muzei.api.ACCESS_PROVIDER">
 
 			<intent-filter>
-				<action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
+				<action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider"/>
 			</intent-filter>
 
-			<meta-data
-				android:name="color"
-				android:value="@color/background_source"/>
-
-		</service>
+		</provider>
 
 	</application>
 
