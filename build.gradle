@@ -5,26 +5,25 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.5.0"
+        classpath "com.android.tools.build:gradle:4.0.1"
     }
 }
 
 apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 30
 
     defaultConfig {
         def versionMajor = 2
         def versionMinor = 0
-        def versionPatch = 1
+        def versionPatch = 0
 
         versionName buildVersionName(versionMajor, versionMinor, versionPatch)
         versionCode buildVersionCode(versionMajor, versionMinor, versionPatch)
 
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
     }
 
     signingConfigs {
@@ -64,6 +63,6 @@ dependencies {
         google()
     }
 
-    implementation "com.google.android.apps.muzei:muzei-api:3.2.0"
+    implementation "com.google.android.apps.muzei:muzei-api:3.4.0"
     implementation "com.google.code.gson:gson:2.8.5"
 }
