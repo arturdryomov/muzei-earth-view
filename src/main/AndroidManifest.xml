@@ -30,6 +30,22 @@
         android:fullBackupContent="false"
 		tools:ignore="GoogleAppIndexingWarning">
 
+		<activity-alias
+			android:name=".LauncherActivity"
+			android:enabled="@bool/enable_launcher"
+			android:targetActivity=".RedirectActivity">
+
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
+		</activity-alias>
+
+		<activity
+			android:name=".RedirectActivity"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
 		<provider
 			android:name=".WallpapersProvider"
 			android:authorities="ru.ming13.muzei.earthview"
@@ -40,6 +56,19 @@
 
 			<intent-filter>
 				<action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider"/>
+			</intent-filter>
+
+		</provider>
+
+		<provider
+			android:name="com.google.android.apps.muzei.api.provider.MuzeiArtDocumentsProvider"
+			android:authorities="ru.ming13.muzei.earthview.documents"
+			android:exported="true"
+			android:grantUriPermissions="true"
+			android:permission="android.permission.MANAGE_DOCUMENTS">
+
+			<intent-filter>
+				<action android:name="android.content.action.DOCUMENTS_PROVIDER" />
 			</intent-filter>
 
 		</provider>

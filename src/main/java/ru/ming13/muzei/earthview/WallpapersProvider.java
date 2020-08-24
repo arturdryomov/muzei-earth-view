@@ -27,7 +27,7 @@ import java.util.List;
 public final class WallpapersProvider extends MuzeiArtProvider
 {
 	@Override
-	protected void onLoadRequested(boolean initial) {
+	public void onLoadRequested(boolean initial) {
 		List<Wallpaper> wallpapers = new WallpapersReader(getContext()).readWallpapers();
 		List<Artwork> artworks = new ArrayList<>(wallpapers.size());
 

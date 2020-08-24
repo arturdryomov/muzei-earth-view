@@ -17,14 +17,6 @@
 
 <resources>
 
-	<string name="application_name">Muzei Earth View</string>
-
-	<string name="source_title">Earth View</string>
-	<string name="source_description">Beautiful and unique satellite images from Google Earth</string>
-
-	<string name="toast_enable">Select Earth View in Muzei</string>
-	<string name="toast_enable_source">Select Earth View from the list of Sources in Muzei</string>
-	<string name="toast_muzei_missing_error">You must install Muzei to use this Source</string>
-	<string name="toast_play_store_missing_error">Could not install Muzei from the Google Play Store</string>
+    <bool name="enable_launcher">false</bool>
 
 </resources>
