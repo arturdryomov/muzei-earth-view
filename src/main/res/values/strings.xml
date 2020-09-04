@@ -4,6 +4,6 @@
 	<string name="application_name">Muzei Earth View</string>
 
 	<string name="source_title">Earth View</string>
-	<string name="source_description">Beautiful and unique satellite images from Google Earth\n\nIt might take a minute for images to appear on the initial switch to this source. Further source and image switches are immediate.</string>
+	<string name="source_description">Beautiful and unique satellite images\n\nIt might take a minute for images to appear on the initial switch to this source. Further source and image switches are immediate.</string>
 
 </resources>
