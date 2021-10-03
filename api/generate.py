@@ -1,63 +1,76 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
-
+import dataclasses
 import json
 import os
+import typing
 import urllib.request
 
 
-FILE_NAME_WALLPAPER_IDS = "wallpaper_ids.json"
 FILE_NAME_WALLPAPERS = "wallpapers.json"
 
 
-DEFAULT_COUNTRY = ""
-DEFAULT_REGION = ""
+@dataclasses.dataclass(frozen=True)
+class Wallpaper:
+    slug: str
 
 
-def wallpaper(wallpaper_id):
-    print(":: {}".format(wallpaper_id))
+@dataclasses.dataclass(frozen=True)
+class WallpaperDetails:
+    id: str
+    country: str
+    region: str
+    file_url: str
+    maps_url: str
+    attribution: str
 
-    # There are two image sources.
-    #
-    # * Chrome: https://chrome.google.com/webstore/detail/bhloflhklmhfpedakmangadcdofhnnoh
-    # * Web: https://earthview.withgoogle.com/
-    #
-    # Both have ID-based API. IDs are bundled in the Chrome extension.
+    def __lt__(self, other) -> bool:
+        other_wallpaper_details: WallpaperDetails = other
 
-    # Chrome API is used to create universal Google Maps URLs since the Web API does not have zoom.
-    chrome_api_url = "https://www.gstatic.com/prettyearth/assets/data/v3/{}.json".format(wallpaper_id)
+        return int(self.id) < int(other_wallpaper_details.id)
 
-    # Web API is used for attribution and file URLs since Chrome API inlines images as Base64.
-    web_api_url = "https://earthview.withgoogle.com/_api/{}.json".format(wallpaper_id)
 
-    print(":::: GET {}".format(chrome_api_url))
-    with urllib.request.urlopen(chrome_api_url) as chrome_api_response:
-        chrome_api_content = json.loads(chrome_api_response.read())
+def fetch_wallpapers() -> typing.Iterable[Wallpaper]:
+    with urllib.request.urlopen("https://earthview.withgoogle.com/_api/photos.json") as wallpapers_response:
+        wallpapers_content: typing.List[typing.Dict[str, typing.Any]] = json.loads(wallpapers_response.read())
 
-        print(":::: GET {}".format(web_api_url))
-        with urllib.request.urlopen(web_api_url) as web_api_response:
-            web_api_content = json.loads(web_api_response.read())
+        return map(lambda wallpaper: Wallpaper(slug=str(wallpaper["slug"])), wallpapers_content)
 
-            return {
-                "id": wallpaper_id,
-                "country": web_api_content.get("country", DEFAULT_COUNTRY),
-                "region": web_api_content.get("region", DEFAULT_REGION),
-                "file_url": web_api_content["photoUrl"],
-                # Reference: https://developers.google.com/maps/documentation/urls/guide#map-action
-                "maps_url": "https://www.google.com/maps/@?api=1&map_action=map&basemap=satellite&center={lat},{lng}&zoom={zoom}".format(
-                    lat = chrome_api_content["lat"],
-                    lng = chrome_api_content["lng"],
-                    # Undocumented behavior: Google Maps does not work with float zoom values.
-                    zoom = round(chrome_api_content["zoom"])
-                ),
-                "attribution": web_api_content["attribution"].replace("©", "© ")
-            }
+
+def fetch_wallpaper_details(wallpaper: Wallpaper) -> WallpaperDetails:
+    with urllib.request.urlopen(f"https://earthview.withgoogle.com/_api/{wallpaper.slug}.json") as wallpaper_response:
+        wallpaper_content: typing.Dict[str, typing.Any] = json.load(wallpaper_response)
+
+        return WallpaperDetails(
+            id=wallpaper_content["id"],
+            country=wallpaper_content.get("country", ""),
+            region=wallpaper_content.get("region", ""),
+            file_url=wallpaper_content["photoUrl"],
+            maps_url=wallpaper_content["mapsLink"],
+            attribution=wallpaper_content["attribution"].replace("©", "© "),
+        )
+
+
+def convert_wallpaper_details(wallpaper: WallpaperDetails) -> typing.Dict[str, str]:
+    return {
+        "id": wallpaper.id,
+        "country": wallpaper.country,
+        "region": wallpaper.region,
+        "file_url": wallpaper.file_url,
+        "maps_url": wallpaper.maps_url,
+        "attribution": wallpaper.attribution,
+    }
+
+
+def generate_wallpapers() -> None:
+    wallpapers: typing.Iterable[Wallpaper] = fetch_wallpapers()
+    wallpapers: typing.Iterable[WallpaperDetails] = map(lambda w: fetch_wallpaper_details(w), wallpapers)
+    wallpapers: typing.List[WallpaperDetails] = sorted(wallpapers)
+    wallpapers: typing.Iterable[typing.Dict[str, str]] = map(lambda w: convert_wallpaper_details(w), wallpapers)
+
+    with open(os.path.abspath(os.path.join(os.path.dirname(__file__), FILE_NAME_WALLPAPERS)), "w") as wallpapers_file:
+        wallpapers_file.write(json.dumps(list(wallpapers), ensure_ascii=False, indent=4))
 
 
 if __name__ == "__main__":
-    with open(os.path.abspath(os.path.join(os.path.dirname(__file__), FILE_NAME_WALLPAPER_IDS))) as wallpaper_ids_file:
-        wallpaper_ids = json.load(wallpaper_ids_file)
-        wallpapers_json = json.dumps(list(map(wallpaper, wallpaper_ids)), ensure_ascii=False, indent=4)
-
-        with open(os.path.abspath(os.path.join(os.path.dirname(__file__), FILE_NAME_WALLPAPERS)), "w") as wallpapers_file:
-            wallpapers_file.write(wallpapers_json)
+    generate_wallpapers()
